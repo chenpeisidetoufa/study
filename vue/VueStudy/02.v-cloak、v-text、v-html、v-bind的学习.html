@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-cloack的学习</title>
+    <style>
+        [v-cloak]
+        {
+            display: none;
+        }
+    </style>
+    
+</head>
+
+<body>
+
+    <div id = "app">
+        <!-- 
+            v-cloak能够解决插值表达式的渲染闪烁问题，比如{{msg}}这条信息的隐藏
+            使用火狐浏览器将网速调慢可看出明显效果
+            原理：在<p>元素被渲染后，自动删除<p>的v-cloak属性
+        -->
+
+        <p v-cloak>
+            ------{{msg}}--------
+        </p>
+
+        <!-- v-text可以代替插值表达式{{msg}},但是必须写在id = “app” 之内，与vm的el元素对应-->
+        <h1 v-text = "msg">---------</h1>
+        
+        <!--
+            插值表达式与v-text的区别：
+            1.v-text不用考虑闪烁问题；
+            2.插值表达式可以字符串拼接（-------{{msg}}--------）而v-text：<h1>解析之后覆盖------；
+        -->
+
+
+        <!--
+        v-html可以识别vm.data中的html标签，但也会覆盖
+        插值表达式和v-text只能字符替换
+        -->
+        <div v-html = "msg2"></div>
+        <div v-text = "msg2"></div>
+        <div v-cloak>{{msg2}}</div>
+
+        <!--
+            v-bind是vue中提供的用于绑定属性的指令，title适配在vm.data中定义的变量
+            v-bind会把引号中的内容当做js代码执行，因此可以拼接字符
+            v-bind还有个简写形式，只留 :要绑定的属性
+        -->
+        <input type="button" value="按钮1" title = "mytitle"></input>
+        <input type="button" value="按钮2" v-bind:title = "mytitle"></input>
+        <input type="button" value="按钮3" v-bind:title = "mytitle + '测试'"></input>
+        <input type="button" value="按钮4" :title = "mytitle"></input>
+
+    </div>
+
+
+
+    <script src = "./lib/vue-2.6.10.js"></script>
+
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                msg: "123",
+                msg2: "<h4>TEST</h4>",
+                mytitle: "提示"
+            }
+        });
+    </script>
+
+</body>
+</html>

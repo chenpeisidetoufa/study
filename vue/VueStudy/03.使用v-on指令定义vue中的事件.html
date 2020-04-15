@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="./lib/vue-2.6.10.js"></script>
+
+</head>
+
+<body>
+    <!-- 不使用vue定义事件-->
+    <!-- 写法1 -->
+    <!--
+    <div id = "app">
+        <input id="NoVue" type="button" value="按钮" title="不使用vue"></input>
+    </div>
+
+    <script>
+        document.getElementById("NoVue").onclick = function(){
+            alert("测试");
+        }
+    </script>
+    -->
+    <!-- 写法2 -->
+    <!--
+    <div id = "app">
+        <button title="不使用Vue" onclick="displayData()"> 按钮 </button>
+    </div>
+
+    <script>
+            function displayData(){
+                alert("测试");
+            }
+    </script>
+    -->
+
+    <!-- 使用vue定义事件 -->
+    <div id="app">
+        <!-- v-on用来绑定事件 -->
+        <!-- 与v-bind一样，双引号内的内容一方面当做JS代码，另一方面 -->
+        <!-- v-on也有缩写 @ -->
+        <input id = "UseVue" type="button" value="按钮" title="使用Vue" 
+        @click="show">
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data:{
+            
+            },
+            //methods定义了当前vue实例所有可用的方法
+            methods:{
+                //也可以简写为：show(){...}
+                show:function()
+                {
+                    alert("测试");
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src = "./lib/vue-2.6.10.js"></script>
+    <style>
+        [v-cloak]
+        {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id = "app">
+
+        <input type="button" value="开始" @click="start"></input>
+        <input type="button" value="停止" @click="stop"></input>
+        <h4 v-cloak>{{msg}}</h4>
+    </div>
+</body>
+
+<script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            msg:"123456789",
+            //用于防止多次点击【开始】，定时器加速且无法停止的问题
+            IntervalId:null,
+        },
+        methods:{
+            start(){
+                if (this.IntervalId != null) {
+
+                    return;
+                }
+
+
+                //普通函数
+                //直接使用this不可以，原因：https://www.cnblogs.com/zjjDaily/p/9482958.html 中的例：3.2
+                //首先考虑是哪个对象直接调用了函数，this就指向谁，全局函数是window调用，this就指向window
+                //其次对于这种情况：函数中嵌套的函数，这种情况没有对象直接调用它，只是自执行，这时把内层函数当做全局函数，
+                //因此这时候this指向window，解决办法:在外部获取当前this
+                //可直接使用箭头函数： () => {...}解决this指向的问题
+                //var _this = this;
+                //var IntervalId = setInterval( function() {
+                //    var cStart = _this.msg.substring(0,1);
+                //    var cNew = _this.msg.substring(1,9) + cStart;
+                //    //console.log(cNew);
+                //    //vm实例，会监听自己身上的data中所有数据的改变，
+                //    //只要数据一发生改变，就会自动把最新的数据同步到页面中去
+                //    _this.msg = cNew;
+                //}, 400)
+
+                //箭头函数
+                this.IntervalId = setInterval( () => {
+                    var cStart = this.msg.substring(0,1);
+                    var cNew = this.msg.substring(1,9) + cStart;
+                    //console.log(cNew);
+                    //vm实例，会监听自己身上的data中所有数据的改变，
+                    //只要数据一发生改变，就会自动把最新的数据同步到页面中去
+                    this.msg = cNew;
+                }, 400)
+            },
+
+            stop(){
+                clearInterval(this.IntervalId);
+                this.IntervalId = null;
+            }
+        }
+    })
+</script>
+</html>

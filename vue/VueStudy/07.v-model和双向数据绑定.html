@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.6.10.js"></script>
+</head>
+<body>
+    <div id = "app">
+        <h4 v-cloak> {{msg}} </h4>
+        <!--
+        v-bind只能实现数据的单向绑定：在控制台通过代码改变vm.msg，页面表单也可以实时改变
+        v-model可以双向绑定，既可以完成v-bind的工作又可以在页面表单修改内容是的vm.msg也修改
+        input(radio, text, address, email...) select checkbox textarea可使用v-model
+        -->
+        <input type="text" v-model:value="msg" style="width: 100%">
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data:{
+                msg:"测试文本测试文本测试文本测试文本"
+            },
+            methods:{
+
+            }
+        })
+    </script>
+
+</body>
+</html>

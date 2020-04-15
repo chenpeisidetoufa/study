@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.6.10.js"></script>
+</head>
+<body>
+    <div id = "app">
+        <p>
+            {{msg}}
+        </p>
+    </div>
+
+    <script>
+        var data = "外部data";
+        //2.创建一个Vue的实例
+        var vm = new Vue({
+            el: '#app',
+            //存放的是el中要用到的数据
+            data: 
+            {
+                msg: "菜鸟教程",
+                a: data,
+                data: "vm-data-data"
+            }
+
+        });
+
+        //外部data
+        console.log(data);
+        //vm-data-data 相当于vm.data.data
+        console.log(vm.data.data);
+        //object 包括： msg、a、data  相当于 vm.data
+        console.log(vm.$data);
+    </script>
+    
+</body>
+</html>

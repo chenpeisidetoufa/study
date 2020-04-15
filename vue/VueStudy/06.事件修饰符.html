@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.6.10.js"></script>
+    <style>
+        .inner
+        {
+            height: 150px;
+            background-color: darkcyan;
+        }
+    </style>
+</head>
+<body>
+    <div id = "app">
+        <!--
+        使用.stop阻止冒泡
+        关于冒泡：div包含button，点击button，先触发button的click，再触发div的click，冒泡为默认行为
+        <div class = "inner" @click="divHandler">
+            <input type="button" value="戳他" @click.stop = "btnHandler">
+        </div>
+        -->
+        
+
+        <!-- 
+        标签<a> 有默认行为（跳转），先执行完linkclick，然后执行默认行为
+        使用.prevent能够阻止默认行为，只执行linkclick
+        <a href="http://www.baidu.com/"  @click.prevent = "linkclick">去百度</a>
+        -->
+
+        <!--
+        捕获机制：与冒泡机制相反，先触发父元素（divHandler）的事件，再触发子元素（btnHandler）的事件  
+        注意捕获机制与冒泡机制添加修饰符的位置不同，捕获：从父到子捕获，修饰符写在父元素；冒泡：从子到父冒泡，修饰符写在子元素
+        <div class = "inner" @click.capture="divHandler">
+            <input type="button" value="戳他" @click = "btnHandler">
+        </div>
+        -->
+
+        <!-- 
+        .self 只有点击本元素，才触发本元素的事件
+        <div class = "inner" @click.self="divHandler">
+                <input type="button" value="戳他" @click = "btnHandler">
+        </div>
+        -->
+
+        <!--
+        .once事件只被触发一次,对元素默认事件不起作用
+        <div class = "inner" @click.once="divHandler">
+                <!<input type="button" value="戳他" @click.once= "btnHandler">
+        </div>
+        -->
+
+        <!-- 串联事件修饰符-->
+        <!-- once与prevent串联，理解：once同时作用于自定义事件和prevent修饰符
+        使得自定义事件只被触发一次，且prevent修饰符只起一次作用 
+        -->
+        <a href="http://www.baidu.com/"  target="_blank"  @click.once.prevent = "linkclick">去百度</a>
+    </div>
+
+    <script>
+        //.stop阻止冒泡
+        //.prevent阻止默认行为
+        //.capture添加事件侦听器时使用事件捕获模式
+        //.self只让本元素的事件执行一次
+        //.once事件只被触发一次
+        var vm = new Vue({
+            el: "#app",
+            data: {
+
+            },
+            methods:
+            {
+                divHandler()
+                {
+                    console.log("触发 inner div的点击事件");
+                },
+                btnHandler()
+                {
+                    console.log("触发 btn 的点击事件");
+                },
+                linkclick()
+                {
+                    console.log("触发 链接 点击事件");
+                }
+            }
+        });
+    </script>
+</body>
+</html>
