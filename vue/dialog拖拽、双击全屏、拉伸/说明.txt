@@ -1,0 +1,6 @@
+1.使用方法都一样，dialogDrag1.js中有说明
+2.dialogDrag1.js 
+   可以实现拖拽、拉伸，双击头部全屏。并且拖拽范围比dialogDrag2.js大；
+   但是有bug：使用后dialog的文本输入框，输入的内容无法鼠标左键选中
+3.dialogDrag.js
+   只可以实现拖拽，且范围只在页面内，没有bug
